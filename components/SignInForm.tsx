@@ -4,16 +4,38 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Eye, EyeOff } from "lucide-react";
+import { cookies } from "next/headers";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "@/api/user/signIn";
 
 const SignInForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: { email: string; password: string }) =>
+      signIn(data.email, data.password),
+    onSuccess: () => {
+      console.log("✅ успешный вход:", data);
+    },
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const { email, password } = data;
     e.preventDefault();
-    setIsLoading(true);
     // Simulate API call
-    setTimeout(() => setIsLoading(false), 1000);
+    mutate({ email, password });
   };
 
   return (
@@ -24,8 +46,11 @@ const SignInForm: React.FC = () => {
           <Input
             id="email"
             type="email"
+            name="email"
+            onChange={handleChange}
             placeholder="your@email.com"
             required
+            autoComplete="email"
           />
         </div>
 
@@ -34,9 +59,12 @@ const SignInForm: React.FC = () => {
           <div className="relative">
             <Input
               id="password"
+              name="password"
+              onChange={handleChange}
               type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               required
+              autoComplete="current-password"
             />
             <Button
               type="button"
@@ -54,7 +82,7 @@ const SignInForm: React.FC = () => {
           </div>
         </div>
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
+        <Button type="submit" className="w-full" disabled={isPending}>
           {isLoading ? "Входим..." : "Войти"}
         </Button>
       </form>
