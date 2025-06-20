@@ -8,9 +8,15 @@ interface ProductCardProps {
   className?: string;
 }
 
-export default function ProductCard({ product, className = '' }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  className = '',
+}: ProductCardProps) {
   return (
-    <Link href={`/product/${product.id}`} className={`group block ${className}`}>
+    <Link
+      href={`/product/${product.id}`}
+      className={`group block ${className}`}
+    >
       <div className="space-y-3">
         {/* Image */}
         <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">

@@ -1,30 +1,39 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Eye, EyeOff } from "lucide-react";
-import { signUp } from "@/api/user/signUp";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { Eye, EyeOff } from 'lucide-react';
+import { signUp } from '@/api/user/signUp';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const RegisterForm: React.FC = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
   const [data, setData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
-  const { mutate } = useMutation({
+  const { mutate, error } = useMutation({
     mutationFn: (data: { email: string; password: string }) =>
       signUp(data.email, data.password),
     onSuccess: (data) => {
-      console.log("✅ Зарегистрирован:", data);
-      // возможно редирект или сохранение токена
+      console.log('✅ Зарегистрирован:', data);
+      Cookies.set('authToken', data.token);
+      localStorage.setItem('authToken', data.token);
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      router.push('/');
     },
   });
+
+  console.log(error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({
@@ -42,11 +51,11 @@ const RegisterForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const {email, password} = data
+    const { email, password } = data;
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => setIsLoading(false), 1000);
-    mutate({email, password})
+    mutate({ email, password });
   };
 
   return (
@@ -72,7 +81,7 @@ const RegisterForm: React.FC = () => {
               id="password-register"
               name="password"
               onChange={handleChange}
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               required
               autoComplete="current-password"
@@ -105,9 +114,9 @@ const RegisterForm: React.FC = () => {
             autoComplete="password-confirm"
           />
         </div>
-
+        {error && <p className="text-red-500">{error.message}</p>}
         <Button type="submit" className="w-full" disabled={isDisable}>
-          {isLoading ? "Регистрируемся..." : "Зарегистрироваться"}
+          {isLoading ? 'Регистрируемся...' : 'Зарегистрироваться'}
         </Button>
       </form>
     </>

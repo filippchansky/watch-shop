@@ -1,26 +1,32 @@
-"use client";
-import React, { useState } from "react";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Eye, EyeOff } from "lucide-react";
-import { cookies } from "next/headers";
-import { useMutation } from "@tanstack/react-query";
-import { signIn } from "@/api/user/signIn";
+'use client';
+import React, { useState } from 'react';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { Eye, EyeOff } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { signIn } from '@/api/user/signIn';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const SignInForm: React.FC = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: { email: string; password: string }) =>
       signIn(data.email, data.password),
-    onSuccess: () => {
-      console.log("✅ успешный вход:", data);
+    onSuccess: async (data) => {
+      Cookies.set('authToken', data.token);
+      localStorage.setItem('authToken', data.token);
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      router.push('/');
     },
   });
 
@@ -61,7 +67,7 @@ const SignInForm: React.FC = () => {
               id="password"
               name="password"
               onChange={handleChange}
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               required
               autoComplete="current-password"
@@ -83,7 +89,7 @@ const SignInForm: React.FC = () => {
         </div>
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isLoading ? "Входим..." : "Войти"}
+          {isLoading ? 'Входим...' : 'Войти'}
         </Button>
       </form>
 

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { use, useState } from "react";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import { products } from "@/lib/data";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ProductCard from "@/components/product-card";
-import { ShoppingCart, Heart, Share2, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { use, useState } from 'react';
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { products } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ProductCard from '@/components/product-card';
+import { ShoppingCart, Heart, Share2, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -57,7 +57,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         <div className="space-y-4">
           <div className="aspect-square relative overflow-hidden rounded-lg bg-gray-100">
             <Image
-              src={product.images[selectedImage]}
+              src={product.images[selectedImage] ?? ''}
               alt={product.name}
               fill
               className="object-cover"
@@ -77,7 +77,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`relative aspect-square w-20 rounded-lg overflow-hidden border-2 ${
-                    selectedImage === index ? "border-black" : "border-gray-200"
+                    selectedImage === index ? 'border-black' : 'border-gray-200'
                   }`}
                 >
                   <Image
@@ -103,11 +103,11 @@ export default function ProductPage({ params }: ProductPageProps) {
 
           <div className="flex items-center gap-4">
             <span className="text-3xl font-bold text-gray-900">
-              {product.price.toLocaleString("ru-RU")} ₽
+              {product.price.toLocaleString('ru-RU')} ₽
             </span>
             {product.originalPrice && (
               <span className="text-xl text-gray-500 line-through">
-                {product.originalPrice.toLocaleString("ru-RU")} ₽
+                {product.originalPrice.toLocaleString('ru-RU')} ₽
               </span>
             )}
           </div>
@@ -115,8 +115,8 @@ export default function ProductPage({ params }: ProductPageProps) {
           <p className="text-gray-700 leading-relaxed">{product.description}</p>
 
           <div className="flex items-center gap-4">
-            <Badge variant={product.inStock ? "default" : "secondary"}>
-              {product.inStock ? "В наличии" : "Нет в наличии"}
+            <Badge variant={product.inStock ? 'default' : 'secondary'}>
+              {product.inStock ? 'В наличии' : 'Нет в наличии'}
             </Badge>
           </div>
 
