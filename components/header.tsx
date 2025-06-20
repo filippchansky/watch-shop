@@ -32,7 +32,7 @@ export default function Header() {
               <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
                 <div className="w-4 h-4 border-2 border-white rounded-full"></div>
               </div>
-              <span className="ml-2 text-xl font-semibold">TimeZone</span>
+              <span className="ml-2 text-xl font-semibold">TimeZone[prod]</span>
             </div>
           </Link>
 
