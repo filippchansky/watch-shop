@@ -6,12 +6,6 @@ import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { useAuthStore } from '@/store/AuthStore';
 import UserDropdown from './UserDropdown';
 import { Skeleton } from './ui/skeleton';

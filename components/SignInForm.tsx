@@ -23,9 +23,10 @@ const SignInForm: React.FC = () => {
     mutationFn: (data: { email: string; password: string }) =>
       signIn(data.email, data.password),
     onSuccess: async (data) => {
+      console.log('✅ Зарегистрирован:', data);
       Cookies.set('authToken', data.token);
       localStorage.setItem('authToken', data.token);
-      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      queryClient.refetchQueries({ queryKey: ['auth'] });
       router.push('/');
     },
   });
