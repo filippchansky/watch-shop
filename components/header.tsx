@@ -5,22 +5,22 @@ import { useState } from 'react';
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAuthStore } from '@/store/AuthStore';
+import UserDropdown from './UserDropdown';
+import { Skeleton } from './ui/skeleton';
 
 export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount] = useState(0);
-  const [isLoggedIn] = useState(false);
+  const { isLoading, isAuth } = useAuthStore();
+  console.log(isLoading, isAuth);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -38,16 +38,28 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-sm font-medium hover:text-gray-600 transition-colors">
+            <Link
+              href="/"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
               Главная
             </Link>
-            <Link href="/catalog" className="text-sm font-medium hover:text-gray-600 transition-colors">
+            <Link
+              href="/catalog"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
               Каталог
             </Link>
-            <Link href="/about" className="text-sm font-medium hover:text-gray-600 transition-colors">
+            <Link
+              href="/about"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
               О нас
             </Link>
-            <Link href="/contact" className="text-sm font-medium hover:text-gray-600 transition-colors">
+            <Link
+              href="/contact"
+              className="text-sm font-medium hover:text-gray-600 transition-colors"
+            >
               Контакты
             </Link>
           </nav>
@@ -75,30 +87,21 @@ export default function Header() {
             </Button>
 
             {/* User Menu */}
-            {isLoggedIn ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm">
-                    <User className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
-                    <Link href="/profile">Профиль</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/orders">Заказы</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>Выйти</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {isAuth ? (
+              <UserDropdown />
             ) : (
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/auth">
-                  <User className="h-4 w-4" />
-                  <span className="ml-1 hidden sm:inline">Войти</span>
-                </Link>
-              </Button>
+              <>
+                {isLoading ? (
+                  <Skeleton className="h-[36px] w-[85px]" />
+                ) : (
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href="/auth">
+                      <User className="h-4 w-4" />
+                      <span className="ml-1 hidden sm:inline">Войти</span>
+                    </Link>
+                  </Button>
+                )}
+              </>
             )}
 
             {/* Mobile Menu */}

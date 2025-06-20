@@ -15,7 +15,7 @@ export default function ProfilePage() {
     name: 'Иван Петров',
     email: 'ivan@example.com',
     avatar: '',
-    joinDate: 'Январь 2024'
+    joinDate: 'Январь 2024',
   });
 
   const [orders] = useState([
@@ -24,31 +24,36 @@ export default function ProfilePage() {
       date: '15.01.2024',
       status: 'delivered',
       total: 299,
-      items: ['Classic Minimalist']
+      items: ['Classic Minimalist'],
     },
     {
       id: '#12344',
       date: '10.01.2024',
       status: 'processing',
       total: 899,
-      items: ['Gold Heritage']
-    }
+      items: ['Gold Heritage'],
+    },
   ]);
 
   const [favorites] = useState([
     { id: '1', name: 'Classic Minimalist', price: 299 },
-    { id: '3', name: 'Sport Pro', price: 199 }
+    { id: '3', name: 'Sport Pro', price: 199 },
   ]);
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
-      'delivered': { label: 'Доставлен', variant: 'default' as const },
-      'processing': { label: 'Обрабатывается', variant: 'secondary' as const },
-      'shipped': { label: 'Отправлен', variant: 'outline' as const },
-      'pending': { label: 'Ожидает', variant: 'secondary' as const }
+      delivered: { label: 'Доставлен', variant: 'default' as const },
+      processing: { label: 'Обрабатывается', variant: 'secondary' as const },
+      shipped: { label: 'Отправлен', variant: 'outline' as const },
+      pending: { label: 'Ожидает', variant: 'secondary' as const },
     };
-    
-    return statusMap[status as keyof typeof statusMap] || { label: status, variant: 'secondary' as const };
+
+    return (
+      statusMap[status as keyof typeof statusMap] || {
+        label: status,
+        variant: 'secondary' as const,
+      }
+    );
   };
 
   return (
@@ -58,7 +63,10 @@ export default function ProfilePage() {
           <Avatar className="h-20 w-20">
             <AvatarImage src={user.avatar} />
             <AvatarFallback className="text-lg">
-              {user.name.split(' ').map(n => n[0]).join('')}
+              {user.name
+                .split(' ')
+                .map((n) => n[0])
+                .join('')}
             </AvatarFallback>
           </Avatar>
           <div>
@@ -108,7 +116,9 @@ export default function ProfilePage() {
                       </div>
                       <div className="space-y-1">
                         {order.items.map((item, index) => (
-                          <p key={index} className="text-sm text-gray-700">{item}</p>
+                          <p key={index} className="text-sm text-gray-700">
+                            {item}
+                          </p>
                         ))}
                       </div>
                       <div className="flex justify-between items-center mt-3 pt-3 border-t">
@@ -134,14 +144,21 @@ export default function ProfilePage() {
               <CardContent>
                 <div className="space-y-4">
                   {favorites.map((item) => (
-                    <div key={item.id} className="flex justify-between items-center p-4 border rounded-lg">
+                    <div
+                      key={item.id}
+                      className="flex justify-between items-center p-4 border rounded-lg"
+                    >
                       <div>
                         <h3 className="font-semibold">{item.name}</h3>
-                        <p className="text-gray-600">{item.price.toLocaleString('ru-RU')} ₽</p>
+                        <p className="text-gray-600">
+                          {item.price.toLocaleString('ru-RU')} ₽
+                        </p>
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm">В корзину</Button>
-                        <Button variant="outline" size="sm">Удалить</Button>
+                        <Button variant="outline" size="sm">
+                          Удалить
+                        </Button>
                       </div>
                     </div>
                   ))}
@@ -164,12 +181,20 @@ export default function ProfilePage() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" defaultValue={user.email} />
+                      <Input
+                        id="email"
+                        type="email"
+                        defaultValue={user.email}
+                      />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Телефон</Label>
-                    <Input id="phone" type="tel" placeholder="+7 (999) 123-45-67" />
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+7 (999) 123-45-67"
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="address">Адрес</Label>
@@ -192,7 +217,9 @@ export default function ProfilePage() {
                   <div className="space-y-3">
                     <label className="flex items-center space-x-2">
                       <input type="checkbox" defaultChecked />
-                      <span className="text-sm">Email уведомления о заказах</span>
+                      <span className="text-sm">
+                        Email уведомления о заказах
+                      </span>
                     </label>
                     <label className="flex items-center space-x-2">
                       <input type="checkbox" defaultChecked />
@@ -204,15 +231,17 @@ export default function ProfilePage() {
                     </label>
                   </div>
                 </div>
-                
+
                 <div>
                   <h3 className="font-semibold mb-3">Безопасность</h3>
                   <div className="space-y-3">
                     <Button variant="outline">Изменить пароль</Button>
-                    <Button variant="outline">Настроить двухфакторную аутентификацию</Button>
+                    <Button variant="outline">
+                      Настроить двухфакторную аутентификацию
+                    </Button>
                   </div>
                 </div>
-                
+
                 <div className="pt-6 border-t">
                   <Button variant="destructive">Удалить аккаунт</Button>
                 </div>

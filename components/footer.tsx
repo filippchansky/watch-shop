@@ -15,8 +15,8 @@ export default function Footer() {
               <span className="ml-2 text-xl font-semibold">TimeZone</span>
             </div>
             <p className="text-sm text-gray-600">
-              Премиальные часы для современных людей. 
-              Качество, стиль и точность в каждой детали.
+              Премиальные часы для современных людей. Качество, стиль и точность
+              в каждой детали.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-gray-600">
@@ -36,22 +36,34 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Магазин</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/catalog" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/catalog"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Все часы
                 </Link>
               </li>
               <li>
-                <Link href="/catalog?category=luxury" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/catalog?category=luxury"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Люкс
                 </Link>
               </li>
               <li>
-                <Link href="/catalog?category=sport" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/catalog?category=sport"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Спортивные
                 </Link>
               </li>
               <li>
-                <Link href="/catalog?category=vintage" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/catalog?category=vintage"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Винтажные
                 </Link>
               </li>
@@ -63,22 +75,34 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Поддержка</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/contact"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Контакты
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/shipping"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Доставка
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/returns"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Возврат
                 </Link>
               </li>
               <li>
-                <Link href="/warranty" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/warranty"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Гарантия
                 </Link>
               </li>
@@ -90,22 +114,34 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Компания</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/about" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/about"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   О нас
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/careers"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Карьера
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/privacy"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Конфиденциальность
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-600 hover:text-gray-900">
+                <Link
+                  href="/terms"
+                  className="text-gray-600 hover:text-gray-900"
+                >
                   Условия
                 </Link>
               </li>

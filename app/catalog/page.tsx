@@ -26,20 +26,24 @@ export default function CatalogPage() {
 
     // Filter by category
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      filtered = filtered.filter(
+        (product) => product.category === selectedCategory
+      );
     }
 
     // Filter by search query
     if (searchQuery) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.brand.toLowerCase().includes(searchQuery.toLowerCase())
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.brand.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     // Filter by price range
-    filtered = filtered.filter(product =>
-      product.price >= priceRange.min && product.price <= priceRange.max
+    filtered = filtered.filter(
+      (product) =>
+        product.price >= priceRange.min && product.price <= priceRange.max
     );
 
     // Sort products
@@ -118,13 +122,23 @@ export default function CatalogPage() {
                   type="number"
                   placeholder="От"
                   value={priceRange.min}
-                  onChange={(e) => setPriceRange(prev => ({ ...prev, min: Number(e.target.value) }))}
+                  onChange={(e) =>
+                    setPriceRange((prev) => ({
+                      ...prev,
+                      min: Number(e.target.value),
+                    }))
+                  }
                 />
                 <Input
                   type="number"
                   placeholder="До"
                   value={priceRange.max}
-                  onChange={(e) => setPriceRange(prev => ({ ...prev, max: Number(e.target.value) }))}
+                  onChange={(e) =>
+                    setPriceRange((prev) => ({
+                      ...prev,
+                      max: Number(e.target.value),
+                    }))
+                  }
                 />
               </div>
               <Button
@@ -146,7 +160,7 @@ export default function CatalogPage() {
             <p className="text-gray-600">
               Найдено {filteredProducts.length} часов
             </p>
-            
+
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600">Сортировать:</span>
               <Select value={sortBy} onValueChange={setSortBy}>
@@ -155,7 +169,9 @@ export default function CatalogPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="name">По названию</SelectItem>
-                  <SelectItem value="price-asc">По цене (возрастание)</SelectItem>
+                  <SelectItem value="price-asc">
+                    По цене (возрастание)
+                  </SelectItem>
                   <SelectItem value="price-desc">По цене (убывание)</SelectItem>
                 </SelectContent>
               </Select>
@@ -171,7 +187,9 @@ export default function CatalogPage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-600 mb-4">Часы по вашим критериям не найдены</p>
+              <p className="text-gray-600 mb-4">
+                Часы по вашим критериям не найдены
+              </p>
               <Button
                 variant="outline"
                 onClick={() => {

@@ -1,5 +1,5 @@
-import { publicApi } from "../publicApi"
+import { publicApi } from '../publicApi';
 
 export const getAllProducts = async () => {
-  const res = await publicApi.get('/products')
-}
+  const res = await publicApi.get('/products');
+};

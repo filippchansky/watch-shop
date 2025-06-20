@@ -7,7 +7,7 @@ import { ArrowRight, Award, Truck, Shield, Clock } from 'lucide-react';
 
 export default function Home() {
   const featuredProducts = products.slice(0, 4);
-  const newProducts = products.filter(p => p.isNew);
+  const newProducts = products.filter((p) => p.isNew);
 
   return (
     <div className="space-y-16">
@@ -23,11 +23,11 @@ export default function Home() {
                   <span className="text-gray-600">роскошь</span>
                 </h1>
                 <p className="text-lg text-gray-600 max-w-md">
-                  Откройте для себя коллекцию премиальных часов, 
-                  где каждая деталь создана с особым вниманием к качеству и стилю.
+                  Откройте для себя коллекцию премиальных часов, где каждая
+                  деталь создана с особым вниманием к качеству и стилю.
                 </p>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" asChild>
                   <Link href="/catalog">
@@ -40,7 +40,7 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-            
+
             <div className="relative">
               <div className="aspect-square relative rounded-full overflow-hidden bg-white shadow-2xl">
                 <Image
@@ -67,31 +67,39 @@ export default function Home() {
               <Award className="h-6 w-6 text-gray-700" />
             </div>
             <h3 className="font-semibold">Премиум качество</h3>
-            <p className="text-sm text-gray-600">Только проверенные бренды и материалы высочайшего качества</p>
+            <p className="text-sm text-gray-600">
+              Только проверенные бренды и материалы высочайшего качества
+            </p>
           </div>
-          
+
           <div className="text-center space-y-3">
             <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
               <Truck className="h-6 w-6 text-gray-700" />
             </div>
             <h3 className="font-semibold">Быстрая доставка</h3>
-            <p className="text-sm text-gray-600">Доставим ваш заказ в течение 1-3 рабочих дней</p>
+            <p className="text-sm text-gray-600">
+              Доставим ваш заказ в течение 1-3 рабочих дней
+            </p>
           </div>
-          
+
           <div className="text-center space-y-3">
             <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
               <Shield className="h-6 w-6 text-gray-700" />
             </div>
             <h3 className="font-semibold">Гарантия 2 года</h3>
-            <p className="text-sm text-gray-600">Официальная гарантия на все часы сроком 24 месяца</p>
+            <p className="text-sm text-gray-600">
+              Официальная гарантия на все часы сроком 24 месяца
+            </p>
           </div>
-          
+
           <div className="text-center space-y-3">
             <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
               <Clock className="h-6 w-6 text-gray-700" />
             </div>
             <h3 className="font-semibold">Сервис 24/7</h3>
-            <p className="text-sm text-gray-600">Круглосуточная поддержка клиентов и консультации</p>
+            <p className="text-sm text-gray-600">
+              Круглосуточная поддержка клиентов и консультации
+            </p>
           </div>
         </div>
       </section>
@@ -99,18 +107,21 @@ export default function Home() {
       {/* Featured Products */}
       <section className="container mx-auto px-4 space-y-8">
         <div className="text-center space-y-4">
-          <h2 className="text-3xl font-bold text-gray-900">Популярные модели</h2>
+          <h2 className="text-3xl font-bold text-gray-900">
+            Популярные модели
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Наши самые востребованные часы, которые выбирают ценители качества и стиля
+            Наши самые востребованные часы, которые выбирают ценители качества и
+            стиля
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-        
+
         <div className="text-center">
           <Button variant="outline" size="lg" asChild>
             <Link href="/catalog">
@@ -131,7 +142,7 @@ export default function Home() {
                 Последние поступления в нашей коллекции
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -146,7 +157,8 @@ export default function Home() {
         <div className="container mx-auto px-4 py-16 text-center space-y-6">
           <h2 className="text-3xl font-bold">Подпишитесь на новости</h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            Будьте первыми в курсе новых поступлений, скидок и эксклюзивных предложений
+            Будьте первыми в курсе новых поступлений, скидок и эксклюзивных
+            предложений
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
@@ -154,9 +166,7 @@ export default function Home() {
               placeholder="Ваш email"
               className="flex-1 px-4 py-2 rounded-lg bg-white text-black"
             />
-            <Button variant="secondary">
-              Подписаться
-            </Button>
+            <Button variant="secondary">Подписаться</Button>
           </div>
         </div>
       </section>
