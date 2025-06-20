@@ -14,7 +14,6 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount] = useState(0);
   const { isLoading, isAuth } = useAuthStore();
-  console.log(isLoading, isAuth);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">

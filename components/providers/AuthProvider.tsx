@@ -14,10 +14,11 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['auth'],
     queryFn: getUser,
-    retry: false,
+    retry: false
   });
 
   useEffect(() => {
+    console.log('refetch - ', data)
     setIsLoading(isLoading);
     if (data && isSuccess) {
       setUser(data);
@@ -29,7 +30,6 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
       setIsAuth(false);
     }
   }, [data, isError, isLoading, isSuccess, setIsAuth, setIsLoading, setUser]);
-  console.log(isLoading, 'provider');
 
   return <>{children}</>;
 };

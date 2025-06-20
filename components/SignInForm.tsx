@@ -13,7 +13,6 @@ const SignInForm: React.FC = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -88,9 +87,16 @@ const SignInForm: React.FC = () => {
             </Button>
           </div>
         </div>
-
+        <Button
+          onClick={(e) => {
+            e.preventDefault()
+            queryClient.refetchQueries({ queryKey: ['auth'] });
+          }}
+        >
+          Revalidate
+        </Button>
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isLoading ? 'Входим...' : 'Войти'}
+          {isPending ? 'Входим...' : 'Войти'}
         </Button>
       </form>
 
