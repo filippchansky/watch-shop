@@ -1,5 +1,5 @@
 'use client';
-import { getUser } from '@/api/user/getUser';
+import { getUser } from '@/shared/api/user/getUser';
 import { useAuthStore } from '@/store/AuthStore';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
@@ -14,7 +14,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['auth'],
     queryFn: getUser,
-    retry: 3
+    retry: 3,
   });
 
   useEffect(() => {

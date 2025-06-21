@@ -5,7 +5,7 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Eye, EyeOff } from 'lucide-react';
-import { signUp } from '@/api/user/signUp';
+import { signUp } from '@/shared/api/user/signUp';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 

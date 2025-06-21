@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { signIn } from '@/api/user/signIn';
+import { signIn } from '@/shared/api/user/signIn';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
@@ -89,7 +89,7 @@ const SignInForm: React.FC = () => {
         </div>
         <Button
           onClick={(e) => {
-            e.preventDefault()
+            e.preventDefault();
             queryClient.refetchQueries({ queryKey: ['auth'] });
           }}
         >
