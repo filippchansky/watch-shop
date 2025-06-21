@@ -21,13 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={inter.className}>
-        <Provider>
+      <Provider>
+        <body className={inter.className}>
           <Header />
           <main className="min-h-screen">{children}</main>
           <Footer />
-        </Provider>
-      </body>
+        </body>
+      </Provider>
     </html>
   );
 }

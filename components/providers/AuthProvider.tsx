@@ -14,7 +14,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['auth'],
     queryFn: getUser,
-    retry: 3,
+    retry: false,
   });
 
   useEffect(() => {
