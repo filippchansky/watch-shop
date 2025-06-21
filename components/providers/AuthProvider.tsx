@@ -9,26 +9,30 @@ interface IProps {
 }
 
 const AuthProvider: React.FC<IProps> = ({ children }) => {
-  const { setUser, setIsLoading, setIsAuth } = useAuthStore();
+  const { checkAuth } = useAuthStore();
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['auth'],
-    queryFn: getUser,
-    retry: false,
-  });
+  // const { data, isLoading, isError, isSuccess } = useQuery({
+  //   queryKey: ['auth'],
+  //   queryFn: getUser,
+  //   retry: false,
+  // });
+
+  // useEffect(() => {
+  //   setIsLoading(isLoading);
+  //   if (data && isSuccess) {
+  //     setUser(data);
+  //     setIsAuth(true);
+  //   }
+
+  //   if (isError) {
+  //     setUser(null);
+  //     setIsAuth(false);
+  //   }
+  // }, [data, isError, isLoading, isSuccess, setIsAuth, setIsLoading, setUser]);
 
   useEffect(() => {
-    setIsLoading(isLoading);
-    if (data && isSuccess) {
-      setUser(data);
-      setIsAuth(true);
-    }
-
-    if (isError) {
-      setUser(null);
-      setIsAuth(false);
-    }
-  }, [data, isError, isLoading, isSuccess, setIsAuth, setIsLoading, setUser]);
+    checkAuth();
+  }, [])
 
   return <>{children}</>;
 };

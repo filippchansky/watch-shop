@@ -5,35 +5,35 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Eye, EyeOff } from 'lucide-react';
-import { signUp } from '@/shared/api/user/signUp';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/AuthStore';
 
 const RegisterForm: React.FC = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const {registration, isLoading} = useAuthStore()
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
+  const [error, setError] = useState('')
   const [data, setData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
   });
 
-  const { mutate, error } = useMutation({
-    mutationFn: (data: { email: string; password: string }) =>
-      signUp(data.email, data.password),
-    onSuccess: (data) => {
-      console.log('✅ Зарегистрирован:', data);
-      Cookies.set('authToken', data.token);
-      localStorage.setItem('authToken', data.token);
-      queryClient.invalidateQueries({ queryKey: ['auth'] });
-      router.push('/');
-    },
-  });
+  // const { mutate, error } = useMutation({
+  //   mutationFn: (data: { email: string; password: string }) =>
+  //     signUp(data.email, data.password),
+  //   onSuccess: (data) => {
+  //     console.log('✅ Зарегистрирован:', data);
+  //     Cookies.set('authToken', data.token);
+  //     localStorage.setItem('authToken', data.token);
+  //     queryClient.invalidateQueries({ queryKey: ['auth'] });
+  //     router.push('/');
+  //   },
+  // });
 
-  console.log(error);
+  // console.log(error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({
@@ -52,10 +52,13 @@ const RegisterForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { email, password } = data;
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => setIsLoading(false), 1000);
-    mutate({ email, password });
+    try {
+      await registration(email, password)
+      router.push('/')
+    } catch (err) {
+      console.log( err)
+      setError('123')
+    }
   };
 
   return (
@@ -114,7 +117,7 @@ const RegisterForm: React.FC = () => {
             autoComplete="password-confirm"
           />
         </div>
-        {error && <p className="text-red-500">{error.message}</p>}
+        {error && <p className="text-red-500">{error}</p>}
         <Button type="submit" className="w-full" disabled={isDisable}>
           {isLoading ? 'Регистрируемся...' : 'Зарегистрироваться'}
         </Button>

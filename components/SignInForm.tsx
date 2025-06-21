@@ -8,27 +8,29 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signIn } from '@/shared/api/user/signIn';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/AuthStore';
 
 const SignInForm: React.FC = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { login , isLoading} = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     email: '',
     password: '',
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (data: { email: string; password: string }) =>
-      signIn(data.email, data.password),
-    onSuccess: async (data) => {
-      console.log('✅ Зарегистрирован:', data);
-      Cookies.set('authToken', data.token);
-      localStorage.setItem('authToken', data.token);
-      queryClient.refetchQueries({ queryKey: ['auth'] });
-      router.push('/');
-    },
-  });
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: (data: { email: string; password: string }) =>
+  //     signIn(data.email, data.password),
+  //   onSuccess: async (data) => {
+  //     console.log('✅ Зарегистрирован:', data);
+  //     Cookies.set('authToken', data.token);
+  //     localStorage.setItem('authToken', data.token);
+  //     queryClient.refetchQueries({ queryKey: ['auth'] });
+  //     router.push('/');
+  //   },
+  // });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({
@@ -41,7 +43,12 @@ const SignInForm: React.FC = () => {
     const { email, password } = data;
     e.preventDefault();
     // Simulate API call
-    mutate({ email, password });
+    try {
+      await login(email, password);
+      router.push('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -95,8 +102,8 @@ const SignInForm: React.FC = () => {
         >
           Revalidate
         </Button>
-        <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? 'Входим...' : 'Войти'}
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? 'Входим...' : 'Войти'}
         </Button>
       </form>
 
